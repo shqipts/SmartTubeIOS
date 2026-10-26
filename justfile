@@ -36,6 +36,10 @@ doc-links:
 build:
     xcodebuild build -workspace {{workspace}} -scheme SmartTube -destination "platform=iOS Simulator,name={{sim}}" -derivedDataPath {{derived}} CODE_SIGNING_ALLOWED=NO -quiet
 
+# Local unsigned physical-device Release build (no developer credentials).
+build-unsigned:
+    DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcodebuild build -workspace {{workspace}} -scheme SmartTube -configuration Release -destination 'generic/platform=iOS' -derivedDataPath /Users/shqipts/.hermes/cache/scratch/smarttube-derived -clonedSourcePackagesDirPath /Users/shqipts/.hermes/cache/scratch/smarttube-packages CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=
+
 build-tvos:
     xcodebuild build -workspace {{workspace}} -scheme "Smart Tube" -destination "platform=tvOS Simulator,name={{tv_sim}}" -derivedDataPath {{derived}} CODE_SIGNING_ALLOWED=NO -quiet
 

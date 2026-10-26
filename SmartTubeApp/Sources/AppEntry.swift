@@ -60,10 +60,8 @@ struct AppEntry: App {
         // methods know to skip Crashlytics.crashlytics() instead of hitting the fatal
         // "default app not configured" error.
         let settingsStore = SettingsStore()
-        CrashlyticsLogger.isEnabled = !settingsStore.settings.disableAnalytics
-        if CrashlyticsLogger.isEnabled {
-            FirebaseApp.configure()
-        }
+        // Unsigned local build: no Firebase configuration or telemetry credentials.
+        CrashlyticsLogger.isEnabled = false
         let poTokenProvider: (any PoTokenProvider)? = {
             if let url = settingsStore.settings.poTokenServiceURL {
                 return ServerPoTokenProvider(serviceURL: url)
